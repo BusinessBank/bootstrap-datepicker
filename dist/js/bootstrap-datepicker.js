@@ -855,9 +855,22 @@
 				return;
 			this.picker.find('.datepicker-days thead .datepicker-switch')
 						.text(dates[this.o.language].months[month]+' '+year);
+
+                        var today = new Date();
+                        var hideTodayButton = false;
+                        if (this.o.todayBtn === false) {
+                            hideTodayButton = true;
+                        }
+                        else if (this.o.startDate !== -Infinity && today <= this.o.startDate.getTime()) {
+                            hideTodayButton = true;
+                        }
+                        else if (this.o.endDate !== Infinity && this.o.endDate.getTime() <= today) {
+                            hideTodayButton = true;
+                        }
+
 			this.picker.find('tfoot .today')
 						.text(todaytxt)
-						.toggle(this.o.todayBtn !== false);
+						.toggle(!hideTodayButton);
 			this.picker.find('tfoot .clear')
 						.text(cleartxt)
 						.toggle(this.o.clearBtn !== false);
@@ -1023,6 +1036,7 @@
 
 		click: function(e){
 			e.preventDefault();
+			e.stopPropagation();
 			var target = $(e.target).closest('span, td, th'),
 				year, month, day;
 			if (target.length === 1){
