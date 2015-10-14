@@ -873,6 +873,7 @@
 						.text(dates[this.o.language].months[month]+' '+year);
 
                         var today = new Date();
+                        today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
                         var hideTodayButton = false;
                         if (this.o.todayBtn === false) {
                             hideTodayButton = true;
