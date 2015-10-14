@@ -872,16 +872,17 @@
 			this.picker.find('.datepicker-days thead .datepicker-switch')
 						.text(dates[this.o.language].months[month]+' '+year);
 
-                        var today = new Date();
-                        today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                        var now = new Date();
+                        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                        var tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
                         var hideTodayButton = false;
                         if (this.o.todayBtn === false) {
                             hideTodayButton = true;
                         }
-                        else if (this.o.startDate !== -Infinity && today <= this.o.startDate.getTime()) {
+                        else if (this.o.startDate !== -Infinity && tomorrow.getTime() <= this.o.startDate.getTime()) {
                             hideTodayButton = true;
                         }
-                        else if (this.o.endDate !== Infinity && this.o.endDate.getTime() <= today) {
+                        else if (this.o.endDate !== Infinity && this.o.endDate.getTime() < today.getTime()) {
                             hideTodayButton = true;
                         }
 
